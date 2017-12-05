@@ -17258,6 +17258,8 @@ var _chart = __webpack_require__(126);
 
 var _chart2 = _interopRequireDefault(_chart);
 
+var _api_util = __webpack_require__(175);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -17319,15 +17321,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     graphRef = myChart(data);
   };
 
-  var generateGraph = function generateGraph() {
+  var generateGraph = function generateGraph(data) {
     var key = document.getElementById('dataToDisplay').value;
     if (graphRef) {
       graphRef.destroy();
     }
     key = 'price_btc';
-    hitApi().then(function (data) {
-      return formatData(data, key);
-    }).then(function (data) {
+    formatData(data, key).then(function (data) {
       var graphType = document.getElementById('chartType').value;
       var options = void 0;
       switch (graphType) {
@@ -17367,7 +17367,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
   };
 
   document.getElementById("buildGraph").addEventListener("click", function () {
-    generateGraph();
+    // generateGraph();
+    var currencyShort = document.getElementById("currency");
+    (0, _api_util.updateMarketData)('HKD');
   });
 });
 
@@ -30443,6 +30445,66 @@ module.exports = function(Chart) {
 	};
 };
 
+
+/***/ }),
+/* 175 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var updateMarketData = exports.updateMarketData = function updateMarketData(currencyShort) {
+  var savedMarketData = $.ajax({
+    url: "https://api.jsonbin.io/b/5a26362e1b5b61344704325c/latest",
+    method: "GET"
+  }).then(function (links) {
+    var currentSeconds = new Date().getTime() / 1000;
+    debugger;
+    if (links[currencyShort] !== undefined && currentSeconds - links[currencyShort][0].timestamp < 600) {
+      return $.ajax({
+        url: links[currencyShort],
+        type: "GET"
+      });
+    } else {
+      //get new data for new currency
+      window.CoinStats = {};
+      window.CoinStats.links = links;
+      window.CoinStats.currencyShort = currencyShort;
+      debugger;
+      $.ajax({
+        url: "https://api.coinmarketcap.com/v1/ticker/?start=1&limit=20&convert=" + window.CoinStats.currencyShort,
+        method: "GET"
+      }).then(function (updatedData) {
+        //post updated data to jsonbin
+        debugger;
+        updatedData.unshift({ timestamp: new Date().getTime() / 1000 });
+        window.CoinStats.updatedData = updatedData;
+        $.ajax({
+          url: "https://api.jsonbin.io/b/",
+          method: "POST",
+          contentType: 'application/json',
+          data: JSON.stringify(updatedData)
+        }).then(function (newCurrencyCacheUrl) {
+          //store new URL back in original hash and patch
+          debugger; // want to access currencyShort, not in scope?
+          window.CoinStats.links[window.CoinStats.currencyShort] = "https://api.jsonbin.io/b/" + newCurrencyCacheUrl.id + "/latest";
+          $.ajax({
+            url: "https://api.jsonbin.io/b/5a26362e1b5b61344704325c/",
+            method: "PUT",
+            contentType: 'application/json',
+            data: JSON.stringify(window.CoinStats.links)
+          }).then(function (response) {
+            debugger;
+            return window.CoinStats.updatedData;
+          });
+        });
+      });
+    }
+  });
+};
 
 /***/ })
 /******/ ]);

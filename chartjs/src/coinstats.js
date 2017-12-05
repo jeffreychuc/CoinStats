@@ -1,4 +1,5 @@
 import Chart from 'chart.js';
+import { updateMarketData } from './api_util.js';
 
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
@@ -44,13 +45,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
   };
 
 
-  var generateGraph = () => {
+  var generateGraph = (data) => {
     let key = document.getElementById('dataToDisplay').value;
     if (graphRef) {
       graphRef.destroy();
     }
     key = 'price_btc';
-    hitApi().then((data) => formatData(data, key)).then((data) => {
+    formatData(data, key).then((data) => {
       let graphType = document.getElementById('chartType').value;
       let options;
       switch(graphType) {
@@ -91,7 +92,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   };
 
   document.getElementById("buildGraph").addEventListener("click", function(){
-    generateGraph();
+    // generateGraph();
+    let currencyShort = document.getElementById("currency");
+    updateMarketData('HKD');
   });
 
 });
