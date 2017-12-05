@@ -3,14 +3,70 @@
       <meta charset="utf-8">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
       <script type="text/javascript" src="./app/assets/javascripts/bundle.js" charset="utf-8"></script>
+      <link rel="stylesheet" type="text/css" href="./app/assets/css/ChartStats.css"></link>
   </head>
   <body>
     <canvas id='myChart'></canvas>
+    <div class='userInputs'>
+      <h3>I want to see </h3>
+      <input type="text" id='dataToDisplay' list='dataOptions' placeholder="Percent Change in the past 24h..."></input>
+      <datalist id="dataOptions">
+        <option >Price in USD</option>
+        <option >Price in BTC</option>
+        <option >Volume in the last 24 hours</option>
+        <option>Market cap in USD</option>
+        <option>Percent Change in 1h</option>
+        <option>Percent Change in 24h</option>
+        <option>Percent Change in 7D</option>
+      </datalist>
+      <h3>in</h3>
+      <select id='currency'>
+        <option value="USD">USD</option>
+        <option value="AUD">AUD</option>
+        <option value="BRL">BRL</option>
+        <option value="CAD">CAD</option>
+        <option value="CHF">CHF</option>
+        <option value="CLP">CLP</option>
+        <option value="CNY">CNY</option>
+        <option value="CZK">CZK</option>
+        <option value="DKK">DKK</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="HKD">HKD</option>
+        <option value="HUF">HUF</option>
+        <option value="IDR">IDR</option>
+        <option value="ILS">ILS</option>
+        <option value="INR">INR</option>
+        <option value="JPY">JPY</option>
+        <option value="KRW">KRW</option>
+        <option value="MXN">MXN</option>
+        <option value="MYR">MYR</option>
+        <option value="NOK">NOK</option>
+        <option value="NZD">NZD</option>
+        <option value="PHP">PHP</option>
+        <option value="PKR">PKR</option>
+        <option value="PLN">PLN</option>
+        <option value="RUB">RUB</option>
+        <option value="SEK">SEK</option>
+        <option value="SGD">SGD</option>
+        <option value="THB">THB</option>
+        <option value="TRY">TRY</option>
+        <option value="TWD">TWD</option>
+        <option value="ZAR">ZAR</option>
+      </select>
 
-    <h3>I want to see </h3>
-    <input type="text" id='dataToDisplay' placeholder="Percent Change in the past 24h..."></input>
-    <h3> for the top </h3>
+      <h3> for the top </h3>
+      <input type="text" id='numberOfCoins' placeholder="20"></input>
+      <h3>coins as a</h3>
+      <select id="chartType">
+        <option value='bar'>Bar Graph</option>
+        <option value='doughnut'>Doughnut Chart</option>
+      </select>
+      <button id='buildGraph' >Show me the money!</button>
+    </div>
 
-    <button id='buildGraph' >Show me the data!</button>
+    <div class='newsList'></div>
   </body>
 </html>
+
+

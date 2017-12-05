@@ -1,11 +1,10 @@
 import Chart from 'chart.js';
-import autoComplete from './auto-complete-min';
 
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
   let graphRef;
   const ctx = document.getElementById("myChart");
-  const apiUrl = 'https://api.coinmarketcap.com/v1/ticker/?start=1&limit=100';
+  const apiUrl = 'https://api.coinmarketcap.com/v1/ticker/?start=1&limit=20&convert=usd';
 
   const hitApi =() => $.ajax({
     url: apiUrl,
@@ -25,8 +24,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     let matchedData = apiData.map((coin) => ({[coin.id]: coin[key]}));
     matchedData = matchedData.sort((a, b) => Object.values(b)[0] - Object.values(a)[0]);
-    debugger;
     let coinList = matchedData.map((coin) => Object.keys(coin)[0]);
+    debugger;
     let dataSets = {label: key,
                     data: matchedData.map((coin) => Object.values(coin)[0]),
                     backgroundColor: matchedData.map((price) => ('rgba(255, 99, 132, 0.2)'))
@@ -35,25 +34,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     return {labels: coinList, datasets: [dataSets]};
   };
 
-  const graphGenerateWrapper = (data) => {
+  const graphGenerateWrapper = (data, graphType, options) => {
     var myChart = (input) => new Chart(ctx, {
-      type: 'bar',
+      type: graphType,
       data: input,
-      options: {
-          scales: {
-              yAxes: [{
-                  // type: 'logarithmic',
-                  ticks: {
-                      beginAtZero:true,
-                  },
-              }],
-              xAxes: [{
-                ticks: {
-                  autoSkip: false
-                }
-              }]
-          }
-      }
+      options: options
     });
     graphRef = myChart(data);
   };
@@ -64,7 +49,44 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if (graphRef) {
       graphRef.destroy();
     }
-    hitApi().then((data) => formatData(data, key)).then((data) => graphGenerateWrapper(data));
+    key = 'price_btc';
+    hitApi().then((data) => formatData(data, key)).then((data) => {
+      let graphType = document.getElementById('chartType').value;
+      let options;
+      switch(graphType) {
+        case 'bar':
+          options = {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    // type: 'logarithmic',
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                }],
+                xAxes: [{
+                  ticks: {
+                    autoSkip: false
+                  }
+                }]
+            }
+          };
+        break;
+        case 'doughnut':
+          options = {
+          responsive: true,
+          legend: {
+              position: 'bottom',
+          },
+          animation: {
+              animateScale: true,
+              animateRotate: true
+          }};
+        break;
+      }
+      debugger;
+      graphGenerateWrapper(data, graphType, options);
+    });
 
   };
 
@@ -74,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 });
 
-
+// https://newsapi.org/v2/top-headlines?q=bitcoin&apiKey=2f6753bb7879458ca5d88e6f783d55e4
 
 // for use in dropdown?
 // [
@@ -94,3 +116,4 @@ document.addEventListener("DOMContentLoaded", function(event) {
 //   "percent_change_7d",
 //   "last_updated"
 // ]
+

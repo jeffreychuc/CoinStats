@@ -45,7 +45,6 @@ This project will be implemented with the following technologies:
 
 - [ ] Get `webpack` up and running.  Complete skeleton of index.html.
 - [ ] Get a basic chart up and running with chartjs.
-- [ ] Port over the relevant pieces of my Asteroids(with collision physics) project and implement Asteroid creation
 
 **Day 2**: Ensure that graphing is working without selectors, style the graphs and determine the final overall look of the project.
 
