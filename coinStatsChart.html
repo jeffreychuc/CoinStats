@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-    <script type="text/javascript" src="http://d3js.org/d3.v4.min.js"></script>
-    <script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
-    <script src="https://d3js.org/d3-collection.v1.min.js"></script>
-    <script src="https://d3js.org/d3-dispatch.v1.min.js"></script>
-    <script src="https://d3js.org/d3-quadtree.v1.min.js"></script>
-    <script src="https://d3js.org/d3-timer.v1.min.js"></script>
-    <script src="https://d3js.org/d3-force.v1.min.js"></script>
-	</head>
-	<body>
-    <script type="text/javascript">
-      var apiUrl = 'https://api.coinmarketcap.com/v1/ticker/?start=50&limit=100';
-      var test = d3.json(apiUrl, function(data) {
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="http://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+  <script src="https://d3js.org/d3-collection.v1.min.js"></script>
+  <script src="https://d3js.org/d3-dispatch.v1.min.js"></script>
+  <script src="https://d3js.org/d3-quadtree.v1.min.js"></script>
+  <script src="https://d3js.org/d3-timer.v1.min.js"></script>
+  <script src="https://d3js.org/d3-force.v1.min.js"></script>
+</head>
+<body>
+  <script type="text/javascript">
+    var apiUrl = 'https://api.coinmarketcap.com/v1/ticker/?start=50&limit=100';
+    var test = d3.json(apiUrl, function(data) {
       var coins = d3.select('svg')
-        .selectAll('g')
-          .data(data)
-          .enter()
-          .append('g')
-            .attr('class', 'cost_in_usd')
-            .attr('transform', (d) => {
-              return "translate("+(parseInt(d.rank +2))+","+(parseFloat(d.percent_change_24h)+500)+")"
-            })
-            .on('mouseover', function(d) {
-              console.log(this);
-              console.log(d);
-              d3.select(this).raise()
-              .append('text')
-              .attr('class', 'CoinName')
-              .text(d.id)
-            })
-            .on('mouseout', function() {
-              d3.selectAll('text.CoinName').remove()
+      .selectAll('g')
+      .data(data)
+      .enter()
+      .append('g')
+      .attr('class', 'cost_in_usd')
+      .attr('transform', (d) => {
+        return "translate("+(parseInt(d.rank +2))+","+(parseFloat(d.percent_change_24h)+500)+")"
+      })
+      .on('mouseover', function(d) {
+        console.log(this);
+        console.log(d);
+        d3.select(this).raise()
+        .append('text')
+        .attr('class', 'CoinName')
+        .text(d.id)
+      })
+      .on('mouseout', function() {
+        d3.selectAll('text.CoinName').remove()
 
-            });
+      });
 
 
-          coins.append('circle')
-          .attrs({
-            r: (d) => { return 10 },
-            text: (d) => { return d.id },
-            fill: (d) => { return parseFloat(d.percent_change_24h) > 0 ? 'green' : 'red'}
-          });
-      }
+      coins.append('circle')
+      .attrs({
+        r: (d) => { return 10 },
+        text: (d) => { return d.id },
+        fill: (d) => { return parseFloat(d.percent_change_24h) > 0 ? 'green' : 'red'}
+      });
+    }
     );
 
 
 
-    </script>
-    <div class='root'></div>
-    <svg id='canvas' height='1000px' width='1000px'></svg>
-	</body>
+  </script>
+  <div class='root'></div>
+  <svg id='canvas' height='1000px' width='1000px'></svg>
+</body>
 </html>
