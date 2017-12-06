@@ -595,7 +595,8 @@ body {
 
 .userInputs {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  height: 20px;
 }
 
 h1 {
@@ -618,21 +619,42 @@ a {
   color: #3e95cd;
 }
 
+select {
+  height: 40px;
+  margin-bottom: 20px;
+  top: -10px;
+  position: relative;
+  background: none;
+  outline: none;
+  border: none;
+  -webkit-appearance: none;
+}
+
 input {
-  height: 20px;
+  outline: none;
+  border: none;
   font-family: Helvetica Neue, Arial, sans-serif;
   font-size: 20px;
-  width: 50px;
-}
-
-select {
-  height: 20px;
-}
-
-input {
-  width: 100px;
 }
 
 button {
-  height: 20px;
+  height: 30px;
+  -webkit-appearance: none;
+  outline: none;
+  border: none;
+}
+
+.dataToDisplay  {
+  display: inline-block;
+  align-content: center;
+}
+
+.chart  {
+  width: 50%;
+  height: auto;
+  margin: 0 auto;
+}
+
+canvas  {
+  display: inline;
 }
