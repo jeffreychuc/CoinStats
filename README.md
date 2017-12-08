@@ -50,13 +50,16 @@ This project will be implemented with the following technologies:
 
 - [X] Determine the best way to handle data, is it possible to have live updating data?
 - [X] Style the graphs and make everything reactive.
+- [X] Implemented jsonbin caching of data as not to get rate limited from coinmarketcap api
+    * App currently `GET`s from a jsonbin that contains keys for currencies that have already been pulled.  If a currency has not been previously requested, the app will pull new data from coinmarketcap and `POST` to jsonbin and then `PUT` the original link table with the new jsonbin link.  If the currency has been previously requested, the app will check to ensure that the data is not stale (> 6 minutes).  If the data is determined to be stale, new data will be requested from coinmarketcap and then be `PUT` back to jsonbin.
 
 **Day 3**: Expand the capabilities of the graphs, implement user selection and filtering.
 
 - [X] Determine and implement the most optimal amount of data to show on screen.
 - [X] Implement user selection of data
-* Change Number of coins to display on the graph
-* Change data to be displayed on the Y axis (need to look into log graphing)
+- [X] Implemented pulling of relevant news articles from newsapi.org.
+      * Pulls relevant articles based on top cryptocurrency from selected category.
+
 
 **Day 4**: Polish up UI and UX and finish README and clean up code.
 
