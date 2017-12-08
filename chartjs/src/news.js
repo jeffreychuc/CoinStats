@@ -16,8 +16,9 @@ export const grabAndDisplayNews = (coin) => {
 
     newsSelection.forEach((article) => {
       let child = document.createElement('div');
+      child.classList.add('article');
       let title = document.createElement('a');
-      title.setAttribute('href',article.url);;
+      title.setAttribute('href',article.url);
       title.innerHTML = article.title;
       let descriptionDiv = document.createElement('p');
       descriptionDiv.innerHTML += article.description;

@@ -26638,9 +26638,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 document.addEventListener("DOMContentLoaded", function (event) {
   console.log("DOM fully loaded and parsed");
+
   var graphRef = void 0;
-  var ctx = document.getElementById("myChart");
-  var apiUrl = 'https://api.coinmarketcap.com/v1/ticker/?start=1&limit=' + document.getElementById("numberOfCoins") + '&convert=' + document.getElementById("currency");
+  var ctx = document.getElementById("myChart").getContext('2d');
+
+  var gradient = ctx.createLinearGradient(0, 0, 0, 1000);
+  gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');
+  gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
+  gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+
+  var hoverGradient = ctx.createLinearGradient(0, 0, 0, 200);
+  hoverGradient.addColorStop(0, 'rgba(200, 0,0, 0.3)');
 
   var formatData = function formatData(apiData, key) {
     var matchedData = apiData.map(function (coin) {
@@ -26656,9 +26664,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
       data: matchedData.map(function (coin) {
         return Object.values(coin)[0];
       }),
-      backgroundColor: matchedData.map(function (price) {
-        return getRandomColor();
-      })
+      backgroundColor: gradient,
+      borderColor: _chart2.default.helpers.color('#65f442'),
+      borderWidth: 1,
+      hoverBackgroundColor: hoverGradient
     };
 
     return { labels: coinList, datasets: [dataSets] };
@@ -26697,7 +26706,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
           responsive: true,
           scales: {
             yAxes: [{
-              // type: 'logarithmic',
+              type: 'logarithmic',
               ticks: {
                 beginAtZero: true
               }
@@ -26723,6 +26732,49 @@ document.addEventListener("DOMContentLoaded", function (event) {
             animateScale: true,
             animateRotate: true
           } };
+        break;
+      case 'line':
+        options = {
+          responsive: true,
+          maintainAspectRatio: true,
+          animation: {
+            easing: 'easeInOutQuad',
+            duration: 520
+          },
+          scales: {
+            xAxes: [{
+              gridLines: {
+                color: 'rgba(200, 200, 200, 0.05)',
+                lineWidth: 1
+              }
+            }],
+            yAxes: [{
+              gridLines: {
+                color: 'rgba(200, 200, 200, 0.08)',
+                lineWidth: 1
+              }
+            }]
+          },
+          elements: {
+            line: {
+              tension: 0.4
+            }
+          },
+          legend: {
+            display: false
+          },
+          point: {
+            backgroundColor: 'white'
+          },
+          tooltips: {
+            backgroundColor: 'rgba(0,0,0,0.3)',
+            titleFontColor: 'red',
+            caretSize: 5,
+            cornerRadius: 2,
+            xPadding: 10,
+            yPadding: 10
+          }
+        };
         break;
     }
 
@@ -26752,16 +26804,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
   };
 
   var bubbleChart = function bubbleChart(data) {
-    var width = 1000;
-    var height = 1000;
+    var width = 500;
+    var height = 500;
     d3.select('#bubbles').selectAll("*").remove();
-    debugger;
     console.log(simpleSort);
     var svg = d3.select('#bubbles').append('svg').attr('height', height).attr('width', width).append('g').attr('transform', "translate(0,0)");
-    var radiusScale = d3.scaleSqrt().domain([-10, 100]).range([1, 10]);
-    var simulation = d3.forceSimulation().force('x', d3.forceX(width / 2).strength(0.05)).force('y', d3.forceY(height / 2).strength(0.05)).force('collide', d3.forceCollide(100));
+    var dataSorted = data.map(function (a) {
+      return parseFloat(a[window.CoinStats.key]);
+    });
+    dataSorted = dataSorted.sort(function (a, b) {
+      return simpleSort(b, a);
+    });
+    var radiusScale = d3.scaleSqrt().domain([dataSorted[0], dataSorted.slice(-1)[0]]).range([5, 100]);
+    var simulation = d3.forceSimulation().force('x', d3.forceX(width / 2).strength(0.05)).force('y', d3.forceY(height / 2).strength(0.05)).force('collide', d3.forceCollide(function (d) {
+      return radiusScale(parseFloat(d[window.CoinStats.key]));
+    }));
 
-    var circles = svg.selectAll(".coins").data(data).enter().append('circle').attr('class', 'coin').attr('r', 100).attr('fill', 'lightblue');
+    var circles = svg.selectAll(".coins").data(data).enter().append('circle').attr('class', 'coin').attr('r', function (d) {
+      return radiusScale(parseFloat(d[window.CoinStats.key]));
+    }).attr('fill', 'rgba(0, 255, 21,0.8)').attr('opacity', 0.8).append('text').attr('text', 'lol');
 
     simulation.nodes(data).on('tick', ticked);
 
@@ -26775,18 +26836,141 @@ document.addEventListener("DOMContentLoaded", function (event) {
   };
 
   document.getElementById("buildGraph").addEventListener("click", function () {
-    // generateGraph();
     var currencyShort = document.getElementById("currency").value;
+    // let BTCPriceIntervalID = setInterval( () => {
+    //   $.ajax({
+    //     url: `https://api.coindesk.com/v1/bpi/currentprice/${currencyShort}`
+    //   }).then((response) => {
+    //     debugger;
+    //     document.getElementById('odometer').innerHTML = JSON.parse(response).bpi[currencyShort].rate_float;
+    // });
+    // },1000);
+    var userIn = document.getElementsByClassName('userInputs')[0].classList.add('hidden');
+    var buildGraphButton = document.getElementById('buildGraph').classList.add('hidden');
+    var aligner = document.getElementsByClassName('aligner')[0].classList.add('hidden');
+    // let counter = document.getElementById('odometer').classList.remove('hidden');
     var finishGrabbingMarketData = (0, _api_util.updateMarketData)(currencyShort).done(function (data) {
-
+      var headerClass = document.getElementsByClassName('headerLogo')[0].classList.add('headerDataPresent');
+      document.getElementById('graphicsArea').classList.remove('hidden');
+      (0, _news.grabAndDisplayNews)(data.slice(2, 3)[0].name);
       generateGraph(data.slice(1));
       bubbleChart(data.slice(1, 1 + parseInt(document.getElementById('numberOfCoins').value)));
-      (0, _news.grabAndDisplayNews)(data.slice(1, 2)[0].name);
     });
   });
+
+  //auto align select dropdown
+  (function ($, window) {
+    var arrowWidth = 30;
+
+    $.fn.resizeselect = function (settings) {
+      return this.each(function () {
+
+        $(this).change(function () {
+          var $this = $(this);
+
+          // create test element
+          var text = $this.find("option:selected").text();
+          var $test = $("<span>").html(text);
+
+          // add to body, get width, and get out
+          $test.appendTo('body');
+          var width = $test.width();
+          $test.remove();
+
+          // set select width
+          $this.width(width + arrowWidth + 30);
+
+          // run on start
+        }).change();
+      });
+    };
+
+    // run by default
+    $("select.resizeselect").resizeselect();
+  })(jQuery, window);
 });
 
 // https://newsapi.org/v2/top-headlines?q=bitcoin&apiKey=2f6753bb7879458ca5d88e6f783d55e4
+
+
+// ============================================
+// As of Chart.js v2.5.0
+// http://www.chartjs.org/docs
+// ============================================
+
+
+// ============================================
+// As of Chart.js v2.5.0
+// http://www.chartjs.org/docs
+// ============================================
+
+var chart = document.getElementById('chart').getContext('2d'),
+    gradient = chart.createLinearGradient(0, 0, 0, 450);
+
+gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');
+gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
+gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+
+var data = {
+  labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+  datasets: [{
+    label: 'Custom Label Name',
+    backgroundColor: gradient,
+    pointBackgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#911215',
+    data: [50, 55, 80, 81, 54, 50]
+  }]
+};
+
+var options = {
+  responsive: true,
+  maintainAspectRatio: true,
+  animation: {
+    easing: 'easeInOutQuad',
+    duration: 520
+  },
+  scales: {
+    xAxes: [{
+      gridLines: {
+        color: 'rgba(200, 200, 200, 0.05)',
+        lineWidth: 1
+      }
+    }],
+    yAxes: [{
+      gridLines: {
+        color: 'rgba(200, 200, 200, 0.08)',
+        lineWidth: 1
+      }
+    }]
+  },
+  elements: {
+    line: {
+      tension: 0.4
+    }
+  },
+  legend: {
+    display: false
+  },
+  point: {
+    backgroundColor: 'white'
+  },
+  tooltips: {
+    titleFontFamily: 'Open Sans',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    titleFontColor: 'red',
+    caretSize: 5,
+    cornerRadius: 2,
+    xPadding: 10,
+    yPadding: 10
+  }
+};
+
+var chartInstance = new _chart2.default(chart, {
+  type: 'line',
+  data: data,
+  options: options
+});
 
 /***/ }),
 /* 297 */
@@ -39928,8 +40112,9 @@ var grabAndDisplayNews = exports.grabAndDisplayNews = function grabAndDisplayNew
 
     newsSelection.forEach(function (article) {
       var child = document.createElement('div');
+      child.classList.add('article');
       var title = document.createElement('a');
-      title.setAttribute('href', article.url);;
+      title.setAttribute('href', article.url);
       title.innerHTML = article.title;
       var descriptionDiv = document.createElement('p');
       descriptionDiv.innerHTML += article.description;

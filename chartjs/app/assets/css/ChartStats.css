@@ -595,8 +595,11 @@ body {
 
 .userInputs {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   height: 20px;
+  padding-left: 50px;
+  opacity: 1;
+  transition: all 1s ease-in-out;
 }
 
 h1 {
@@ -628,6 +631,11 @@ select {
   outline: none;
   border: none;
   -webkit-appearance: none;
+  font-size: 20px;
+}
+
+#dataToDisplay{
+  text-align-last:center;
 }
 
 input {
@@ -638,7 +646,6 @@ input {
 }
 
 button {
-  height: 30px;
   -webkit-appearance: none;
   outline: none;
   border: none;
@@ -650,11 +657,162 @@ button {
 }
 
 .chart  {
-  width: 50%;
+  width: 70vw;
   height: auto;
   margin: 0 auto;
+  margin-left: 5vw;
 }
 
 canvas  {
   display: inline;
+}
+
+body  {
+  color: #e5e5e5;
+  /* color: rgba(0, 255, 21,0.8); */
+  /* font-family: droid sans mono,monospace; */
+  text-rendering: optimizeLegibility;
+  background: rgb(40,41,45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.aligner  {
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: -90px;
+}
+
+#numberOfCoins  {
+  background: rgb(40,41,45);
+}
+
+#buildGraph {
+  background: rgba(255, 255, 255, 0.3);
+  font-size: 45px;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  font-weight: 150;
+  color: #ffffffc4;
+  border: #ffffffc4 1px solid;
+  border-radius: 3.5px;
+  padding: 5 25;
+}
+
+#dataToDisplay  {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+}
+
+select {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+}
+
+input {
+  padding-left: 15px;
+  padding-top: 5px;
+  width: 60px;
+}
+
+.headerLogo {
+  font-family: Helvetica Neue, Arial, sans-serif;
+  font-size: 30px;
+  font-weight: 150;
+  padding-bottom: 20px;
+  transition: all 1s ease-in-out;
+  position: fixed;
+  top: 23vh;
+  left: 45%;
+}
+
+.graphics {
+  display:flex;
+}
+
+.hidden {
+  transition: all 0.2s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.headerDataPresent  {
+  position: fixed;
+  top: 35px;
+  left: 40px;
+  font-size: 40;
+  transition: all 1s ease-in-out;
+}
+
+#newsList {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 25vw;
+  margin-right: 5vw;
+}
+
+.article  {
+  padding: 0;
+}
+
+.article a  {
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.odometer odometer-auto-theme  {
+  background-color: none;
+}
+
+.newsContainer  {
+  position: relative;
+  top: -60px;
+  left: 30px;
+}
+
+.newsContainer h2 {
+  font-family: Helvetica Neue, Arial, sans-serif;
+  text-align: left;
+  font-weight: 200;
+  align-items: center;
+}
+
+.vertLine {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.4);
+  height: 30vh;
+  position: relative;
+  top: 40px;
+}
+
+#buildGraph {
+  transition: all 0.3s ease-in-out;
+}
+
+#buildGraph:hover {
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease-in-out;
+}
+
+#graphicsArea {
+  width: 80%;
+}
+
+.vertLineContainer  {
+  display:flex;
+  flex-direction: column;
+  padding-left: 20px;
 }

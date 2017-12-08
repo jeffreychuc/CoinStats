@@ -3,11 +3,20 @@ import { updateMarketData } from './api_util';
 import { grabAndDisplayNews } from './news';
 import * as d3 from "d3";
 
+
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
+
   let graphRef;
-  const ctx = document.getElementById("myChart");
-  const apiUrl = `https://api.coinmarketcap.com/v1/ticker/?start=1&limit=${document.getElementById("numberOfCoins")}&convert=${document.getElementById("currency")}`;
+  const ctx = document.getElementById("myChart").getContext('2d');
+
+  let gradient = ctx.createLinearGradient(0, 0, 0, 1000);
+  gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');
+  gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
+  gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+
+  let hoverGradient = ctx.createLinearGradient(0, 0, 0, 200);
+  hoverGradient.addColorStop(0, 'rgba(200, 0,0, 0.3)');
 
   const formatData = (apiData, key) =>  {
     let matchedData = apiData.map((coin) => ({[coin.id]: coin[key]}));
@@ -15,7 +24,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let coinList = matchedData.map((coin) => Object.keys(coin)[0]);
     let dataSets = {label: key,
                     data: matchedData.map((coin) => Object.values(coin)[0]),
-                    backgroundColor: matchedData.map((price) => getRandomColor())
+                    backgroundColor: gradient,
+                    borderColor: Chart.helpers.color('#65f442'),
+                    borderWidth: 1,
+                    hoverBackgroundColor: hoverGradient
                   };
 
     return {labels: coinList, datasets: [dataSets]};
@@ -39,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     graphRef = myChart(data);
   };
 
-
   const generateGraph = (data) => {
     if (graphRef) {
       graphRef.destroy();
@@ -53,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           responsive: true,
           scales: {
               yAxes: [{
-                  // type: 'logarithmic',
+                  type: 'logarithmic',
                   ticks: {
                       beginAtZero:true,
                   },
@@ -68,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
               }]
           }
         };
-      break;
+        break;
       case 'doughnut':
         options = {
         responsive: true,
@@ -79,7 +90,50 @@ document.addEventListener("DOMContentLoaded", function(event) {
             animateScale: true,
             animateRotate: true
         }};
-      break;
+        break;
+      case 'line':
+        options = {
+          responsive: true,
+          maintainAspectRatio: true,
+          animation: {
+            easing: 'easeInOutQuad',
+            duration: 520
+          },
+          scales: {
+            xAxes: [{
+              gridLines: {
+                color: 'rgba(200, 200, 200, 0.05)',
+                lineWidth: 1
+              }
+            }],
+            yAxes: [{
+              gridLines: {
+                color: 'rgba(200, 200, 200, 0.08)',
+                lineWidth: 1
+              }
+            }]
+          },
+          elements: {
+            line: {
+              tension: 0.4
+            }
+          },
+          legend: {
+            display: false
+          },
+          point: {
+            backgroundColor: 'white'
+          },
+          tooltips: {
+            backgroundColor: 'rgba(0,0,0,0.3)',
+            titleFontColor: 'red',
+            caretSize: 5,
+            cornerRadius: 2,
+            xPadding: 10,
+            yPadding: 10
+          }
+        };
+        break;
     }
 
     let sliceData = document.getElementById('numberOfCoins').value;
@@ -110,11 +164,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   };
 
   const bubbleChart = (data) =>  {
-    const width = 1000;
-    const height = 1000;
+    const width = 500;
+    const height = 500;
     d3.select('#bubbles')
     .selectAll("*").remove();
-    debugger;
     console.log(simpleSort);
     let svg = d3.select('#bubbles')
       .append('svg')
@@ -122,19 +175,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
       .attr('width', width)
       .append('g')
       .attr('transform', "translate(0,0)");
-    let radiusScale = d3.scaleSqrt().domain([-10, 100]).range([1, 10]);
+    let dataSorted = data.map((a) => parseFloat(a[window.CoinStats.key]));
+    dataSorted = dataSorted.sort((a,b) => simpleSort(b,a));
+    let radiusScale = d3.scaleSqrt().domain([dataSorted[0], dataSorted.slice(-1)[0]]).range([5, 100]);
     let simulation = d3.forceSimulation()
     .force('x', d3.forceX(width/2).strength(0.05))
     .force('y', d3.forceY(height/2).strength(0.05))
-    .force('collide', d3.forceCollide(100));
+    .force('collide', d3.forceCollide(d => radiusScale(parseFloat(d[window.CoinStats.key]))));
 
     let circles = svg.selectAll(".coins")
     .data(data)
     .enter()
     .append('circle')
     .attr('class', 'coin')
-    .attr('r', 100)
-    .attr('fill', 'lightblue');
+    .attr('r', d => radiusScale(parseFloat(d[window.CoinStats.key])))
+    .attr('fill', 'rgba(0, 255, 21,0.8)')
+    .attr('opacity', 0.8)
+    .append('text')
+    .attr('text', 'lol');
 
     simulation.nodes(data).on('tick', ticked);
 
@@ -147,19 +205,151 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 
-  document.getElementById("buildGraph").addEventListener("click", function(){
-    // generateGraph();
-    let currencyShort = document.getElementById("currency").value;
-    let finishGrabbingMarketData = updateMarketData(currencyShort).done(function (data) {
 
+
+  document.getElementById("buildGraph").addEventListener("click", function(){
+    let currencyShort = document.getElementById("currency").value;
+    // let BTCPriceIntervalID = setInterval( () => {
+    //   $.ajax({
+    //     url: `https://api.coindesk.com/v1/bpi/currentprice/${currencyShort}`
+    //   }).then((response) => {
+    //     debugger;
+    //     document.getElementById('odometer').innerHTML = JSON.parse(response).bpi[currencyShort].rate_float;
+    // });
+    // },1000);
+    let userIn = document.getElementsByClassName('userInputs')[0].classList.add('hidden');
+    let buildGraphButton = document.getElementById('buildGraph').classList.add('hidden');
+    let aligner = document.getElementsByClassName('aligner')[0].classList.add('hidden');
+    // let counter = document.getElementById('odometer').classList.remove('hidden');
+    let finishGrabbingMarketData = updateMarketData(currencyShort).done(function (data) {
+      let headerClass = document.getElementsByClassName('headerLogo')[0].classList.add('headerDataPresent');
+      document.getElementById('graphicsArea').classList.remove('hidden');
+      grabAndDisplayNews(data.slice(2,3)[0].name);
       generateGraph(data.slice(1));
       bubbleChart(data.slice(1, 1 + parseInt(document.getElementById('numberOfCoins').value)));
-      grabAndDisplayNews(data.slice(1,2)[0].name);
     });
   });
+
+
+  //auto align select dropdown
+  (function($, window){
+    var arrowWidth = 30;
+
+    $.fn.resizeselect = function(settings) {
+      return this.each(function() {
+
+        $(this).change(function(){
+          var $this = $(this);
+
+          // create test element
+          var text = $this.find("option:selected").text();
+          var $test = $("<span>").html(text);
+
+          // add to body, get width, and get out
+          $test.appendTo('body');
+          var width = $test.width();
+          $test.remove();
+
+          // set select width
+          $this.width(width + arrowWidth + 30 );
+
+          // run on start
+        }).change();
+
+      });
+    };
+
+    // run by default
+    $("select.resizeselect").resizeselect();
+
+  })(jQuery, window);
+
 });
 
 // https://newsapi.org/v2/top-headlines?q=bitcoin&apiKey=2f6753bb7879458ca5d88e6f783d55e4
 
 
 
+
+// ============================================
+// As of Chart.js v2.5.0
+// http://www.chartjs.org/docs
+// ============================================
+
+
+
+// ============================================
+// As of Chart.js v2.5.0
+// http://www.chartjs.org/docs
+// ============================================
+
+var chart    = document.getElementById('chart').getContext('2d'),
+gradient = chart.createLinearGradient(0, 0, 0, 450);
+
+gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');
+gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
+gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+
+
+var data  = {
+labels: [ 'January', 'February', 'March', 'April', 'May', 'June' ],
+datasets: [{
+  label: 'Custom Label Name',
+  backgroundColor: gradient,
+  pointBackgroundColor: 'white',
+  borderWidth: 1,
+  borderColor: '#911215',
+  data: [50, 55, 80, 81, 54, 50]
+}]
+};
+
+
+var options = {
+responsive: true,
+maintainAspectRatio: true,
+animation: {
+easing: 'easeInOutQuad',
+duration: 520
+},
+scales: {
+xAxes: [{
+  gridLines: {
+    color: 'rgba(200, 200, 200, 0.05)',
+    lineWidth: 1
+  }
+}],
+yAxes: [{
+  gridLines: {
+    color: 'rgba(200, 200, 200, 0.08)',
+    lineWidth: 1
+  }
+}]
+},
+elements: {
+line: {
+  tension: 0.4
+}
+},
+legend: {
+display: false
+},
+point: {
+backgroundColor: 'white'
+},
+tooltips: {
+titleFontFamily: 'Open Sans',
+backgroundColor: 'rgba(0,0,0,0.3)',
+titleFontColor: 'red',
+caretSize: 5,
+cornerRadius: 2,
+xPadding: 10,
+yPadding: 10
+}
+};
+
+
+var chartInstance = new Chart(chart, {
+type: 'line',
+data: data,
+options: options
+});
