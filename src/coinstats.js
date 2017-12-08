@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
   window.CoinStats = {};
   let graphRef;
-  const ctx = document.getElementById("myChart");
-
+  const ctx = document.getElementById("myChart").getContext('2d');
+  // debugger;
   let gradient = ctx.createLinearGradient(0, 0, 0, 1000);
   gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');
   gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     backgroundColor: gradient,
                     borderColor: Chart.helpers.color('#65f442'),
                     borderWidth: 1,
-                    hoverBackgroundColor: hoverGradient
+                    // hoverBackgroundColor: hoverGradient
                   };
 
     return {labels: coinList, datasets: [dataSets]};
@@ -267,89 +267,3 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 // https://newsapi.org/v2/top-headlines?q=bitcoin&apiKey=2f6753bb7879458ca5d88e6f783d55e4
-
-
-
-
-// ============================================
-// As of Chart.js v2.5.0
-// http://www.chartjs.org/docs
-// ============================================
-
-
-
-// ============================================
-// As of Chart.js v2.5.0
-// http://www.chartjs.org/docs
-// ============================================
-
-var chart    = document.getElementById('chart').getContext('2d'),
-gradient = chart.createLinearGradient(0, 0, 0, 450);
-
-gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');
-gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
-gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
-
-
-var data  = {
-labels: [ 'January', 'February', 'March', 'April', 'May', 'June' ],
-datasets: [{
-  label: 'Custom Label Name',
-  backgroundColor: gradient,
-  pointBackgroundColor: 'white',
-  borderWidth: 1,
-  borderColor: '#911215',
-  data: [50, 55, 80, 81, 54, 50]
-}]
-};
-
-
-var options = {
-responsive: true,
-maintainAspectRatio: true,
-animation: {
-easing: 'easeInOutQuad',
-duration: 520
-},
-scales: {
-xAxes: [{
-  gridLines: {
-    color: 'rgba(200, 200, 200, 0.05)',
-    lineWidth: 1
-  }
-}],
-yAxes: [{
-  gridLines: {
-    color: 'rgba(200, 200, 200, 0.08)',
-    lineWidth: 1
-  }
-}]
-},
-elements: {
-line: {
-  tension: 0.4
-}
-},
-legend: {
-display: false
-},
-point: {
-backgroundColor: 'white'
-},
-tooltips: {
-titleFontFamily: 'Open Sans',
-backgroundColor: 'rgba(0,0,0,0.3)',
-titleFontColor: 'red',
-caretSize: 5,
-cornerRadius: 2,
-xPadding: 10,
-yPadding: 10
-}
-};
-
-
-var chartInstance = new Chart(chart, {
-type: 'line',
-data: data,
-options: options
-});
