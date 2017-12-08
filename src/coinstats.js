@@ -209,14 +209,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   document.getElementById("buildGraph").addEventListener("click", function(){
     let currencyShort = document.getElementById("currency").value;
-    // let BTCPriceIntervalID = setInterval( () => {
-    //   $.ajax({
-    //     url: `https://api.coindesk.com/v1/bpi/currentprice/${currencyShort}`
-    //   }).then((response) => {
-    //     debugger;
-    //     document.getElementById('odometer').innerHTML = JSON.parse(response).bpi[currencyShort].rate_float;
-    // });
-    // },1000);
     let userIn = document.getElementsByClassName('userInputs')[0].classList.add('hidden');
     let buildGraphButton = document.getElementById('buildGraph').classList.add('hidden');
     let aligner = document.getElementsByClassName('aligner')[0].classList.add('hidden');

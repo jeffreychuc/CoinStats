@@ -26837,14 +26837,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   document.getElementById("buildGraph").addEventListener("click", function () {
     var currencyShort = document.getElementById("currency").value;
-    // let BTCPriceIntervalID = setInterval( () => {
-    //   $.ajax({
-    //     url: `https://api.coindesk.com/v1/bpi/currentprice/${currencyShort}`
-    //   }).then((response) => {
-    //     debugger;
-    //     document.getElementById('odometer').innerHTML = JSON.parse(response).bpi[currencyShort].rate_float;
-    // });
-    // },1000);
     var userIn = document.getElementsByClassName('userInputs')[0].classList.add('hidden');
     var buildGraphButton = document.getElementById('buildGraph').classList.add('hidden');
     var aligner = document.getElementsByClassName('aligner')[0].classList.add('hidden');
@@ -40035,7 +40027,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var grabAndDisplayNews = exports.grabAndDisplayNews = function grabAndDisplayNews(coin) {
   debugger;
-  var newsApi = 'https://newsapi.org/v2/everything?sources=the-next-web,the-verge,ars-technica,associated-press,buzzfeed,crypto-coins-news&q=' + coin + '&language=en&apiKey=009ec95ece354516a4e85c09a77cbcf7';
+  var newsApi = 'https://newsapi.org/v2/everything?q=' + coin + '&sortBy=publishedAt&language=en&apiKey=009ec95ece354516a4e85c09a77cbcf7';
   $.ajax({
     url: newsApi,
     method: 'GET'

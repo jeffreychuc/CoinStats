@@ -1,6 +1,6 @@
 export const grabAndDisplayNews = (coin) => {
   debugger;
-  let newsApi = `https://newsapi.org/v2/everything?sources=the-next-web,the-verge,ars-technica,associated-press,buzzfeed,crypto-coins-news&q=${coin}&language=en&apiKey=009ec95ece354516a4e85c09a77cbcf7`;
+  let newsApi = `https://newsapi.org/v2/everything?q=${coin}&sortBy=publishedAt&language=en&apiKey=009ec95ece354516a4e85c09a77cbcf7`;
   $.ajax({
     url: newsApi,
     method: 'GET'
