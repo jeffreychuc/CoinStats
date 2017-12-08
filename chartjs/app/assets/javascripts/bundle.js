@@ -26638,7 +26638,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 document.addEventListener("DOMContentLoaded", function (event) {
   console.log("DOM fully loaded and parsed");
-
+  window.CoinStats = {};
   var graphRef = void 0;
   var ctx = document.getElementById("myChart").getContext('2d');
 
@@ -40041,17 +40041,34 @@ var updateMarketData = exports.updateMarketData = function updateMarketData(curr
   }).then(function (links) {
     var currentSeconds = new Date().getTime() / 1000;
     // debugger;
-    if (links[currencyShort] !== undefined && links[currencyShort].timestamp !== undefined && currentSeconds - links[currencyShort][0].timestamp < 600) {
+    if (links[currencyShort] !== undefined) {
       return $.ajax({
         url: links[currencyShort],
         type: "GET"
       }).then(function (data) {
-        // debugger;
-        return data;
+        debugger;
+        if (data[0].timestamp - currentSeconds > 600) {
+          return $.ajax({
+            url: "https://api.coinmarketcap.com/v1/ticker/?start=1&limit=100&convert=" + window.CoinStats.currencyShort,
+            method: "GET"
+          }).then(function (updatedData) {
+            // debugger;
+            updatedData.unshift({ timestamp: new Date().getTime() / 1000 });
+            // debugger;
+            $.ajax({
+              url: links[currencyShort],
+              method: "POST",
+              contentType: 'application/json',
+              data: JSON.stringify(updatedData)
+            });
+            return updatedData;
+          });
+        } else {
+          return data;
+        }
       });
     } else {
       //get new data for new currency
-      window.CoinStats = {};
       window.CoinStats.links = links;
       window.CoinStats.currencyShort = currencyShort;
       // debugger;

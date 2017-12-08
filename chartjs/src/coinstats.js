@@ -6,7 +6,7 @@ import * as d3 from "d3";
 
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
-
+  window.CoinStats = {};
   let graphRef;
   const ctx = document.getElementById("myChart").getContext('2d');
 
