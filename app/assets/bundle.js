@@ -26836,9 +26836,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
   };
 
   document.getElementById('dataToDisplay').addEventListener('change', function (el) {
-    debugger;
+    // debugger;
     if ([1, 4, 5, 6].includes(parseInt(el.target.value))) {
-      debugger;
+      // debugger;
       document.getElementsByClassName('hideOptions')[0].classList.add('hidden');
     } else {
       document.getElementsByClassName('hideOptions')[0].classList.remove('hidden');
@@ -26853,7 +26853,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var logoLinks = document.getElementsByClassName('logoLinks')[0].classList.add('dataDisplay');
     var headerSubText = document.getElementsByClassName('headerSubText')[0].classList.remove('hidden');
     var headerClass = document.getElementsByClassName('headerLogo')[0].classList.add('headerDataPresent');
-    debugger;
+    // debugger;
     var finishGrabbingMarketData = (0, _api_util.updateMarketData)(currencyShort).done(function (data) {
       document.getElementById('graphicsArea').classList.remove('hidden');
       (0, _news.grabAndDisplayNews)(data.slice(2, 3)[0].name);
@@ -39983,7 +39983,7 @@ var updateMarketData = exports.updateMarketData = function updateMarketData(curr
         url: links[currencyShort],
         type: "GET"
       }).then(function (data) {
-        debugger;
+        // debugger;
         if (data[0].timestamp - currentSeconds > 600) {
           return $.ajax({
             url: "https://api.coinmarketcap.com/v1/ticker/?start=1&limit=100&convert=" + window.CoinStats.currencyShort,
@@ -40058,7 +40058,7 @@ var grabAndDisplayNews = exports.grabAndDisplayNews = function grabAndDisplayNew
     debugger;
     var newsAnchorPoint = document.getElementById('newsList');
 
-    var newsSelection = news.articles.slice(0, 3);
+    var newsSelection = news.articles.slice(0, 4);
 
     while (newsAnchorPoint.firstChild) {
       newsAnchorPoint.removeChild(newsAnchorPoint.firstChild);

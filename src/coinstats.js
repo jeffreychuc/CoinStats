@@ -205,9 +205,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
   document.getElementById('dataToDisplay').addEventListener('change', (el) => {
-    debugger;
+    // debugger;
     if ([1,4,5,6].includes(parseInt(el.target.value))) {
-      debugger;
+      // debugger;
       document.getElementsByClassName('hideOptions')[0].classList.add('hidden');
     }
     else  {
@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let logoLinks = document.getElementsByClassName('logoLinks')[0].classList.add('dataDisplay');
     let headerSubText = document.getElementsByClassName('headerSubText')[0].classList.remove('hidden');
     let headerClass = document.getElementsByClassName('headerLogo')[0].classList.add('headerDataPresent');
-    debugger;
+    // debugger;
     let finishGrabbingMarketData = updateMarketData(currencyShort).done(function (data) {
       document.getElementById('graphicsArea').classList.remove('hidden');
       grabAndDisplayNews(data.slice(2,3)[0].name);

@@ -8,7 +8,7 @@ export const grabAndDisplayNews = (coin) => {
     debugger;
     let newsAnchorPoint = document.getElementById('newsList');
 
-    let newsSelection = news.articles.slice(0,3);
+    let newsSelection = news.articles.slice(0,4);
 
     while (newsAnchorPoint.firstChild) {
       newsAnchorPoint.removeChild(newsAnchorPoint.firstChild);
