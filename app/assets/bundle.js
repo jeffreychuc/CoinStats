@@ -40027,12 +40027,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 var grabAndDisplayNews = exports.grabAndDisplayNews = function grabAndDisplayNews(coin) {
   debugger;
-  var newsApi = 'https://newsapi.org/v2/everything?q=' + coin + '&sortBy=publishedAt&language=en&apiKey=009ec95ece354516a4e85c09a77cbcf7';
+  var newsApi = 'https://newsapi.org/v2/everything?q=' + encodeURIComponent(coin) + '&sortBy=publishedAt&language=en&apiKey=47f28dc62fbd43b1a6ec74d7162e97f0';
   $.ajax({
     url: newsApi,
     method: 'GET'
   }).then(function (news) {
-
+    debugger;
     var newsAnchorPoint = document.getElementById('newsList');
 
     var newsSelection = news.articles.slice(0, 3);

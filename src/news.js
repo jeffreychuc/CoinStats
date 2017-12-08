@@ -1,11 +1,11 @@
 export const grabAndDisplayNews = (coin) => {
   debugger;
-  let newsApi = `https://newsapi.org/v2/everything?q=${coin}&sortBy=publishedAt&language=en&apiKey=009ec95ece354516a4e85c09a77cbcf7`;
+  let newsApi = `https://newsapi.org/v2/everything?q=${encodeURIComponent(coin)}&sortBy=publishedAt&language=en&apiKey=47f28dc62fbd43b1a6ec74d7162e97f0`;
   $.ajax({
     url: newsApi,
     method: 'GET'
   }).then((news) => {
-
+    debugger;
     let newsAnchorPoint = document.getElementById('newsList');
 
     let newsSelection = news.articles.slice(0,3);
