@@ -10,13 +10,13 @@ CoinStats is a data visulization tool that allows a user to quickly scope out th
 
 With CoinStats, users will be able to:
 
-- [ ] Sort charts based on
+- [X] Sort charts based on
 * Price in their desired currency
 * Market Volume
 * % Change in value over a specified time period
-- [ ] Determine how many coins will be displayed on the graph.
+- [X] Determine how many coins will be displayed on the graph.
 * Allow the user to compare specific coins against each other
-- [ ] Pull current data from an external API
+- [X] Pull current data from an external API
 * CoinMarketCap API
 
 ### Wireframes
@@ -43,24 +43,24 @@ This project will be implemented with the following technologies:
 
 **Day 1**: Setup all necessary Node modules, including getting webpack up and running.  Create `webpack.config.js` as well as `package.json`.  Write a basic entry file and ensure that everything is running properly.
 
-- [ ] Get `webpack` up and running.  Complete skeleton of index.html.
-- [ ] Get a basic chart up and running with chartjs.
+- [X] Get `webpack` up and running.  Complete skeleton of index.html.
+- [X] Get a basic chart up and running with chartjs.
 
 **Day 2**: Ensure that graphing is working without selectors, style the graphs and determine the final overall look of the project.
 
-- [ ] Determine the best way to handle data, is it possible to have live updating data?
-- [ ] Style the graphs and make everything reactive.
+- [X] Determine the best way to handle data, is it possible to have live updating data?
+- [X] Style the graphs and make everything reactive.
 
 **Day 3**: Expand the capabilities of the graphs, implement user selection and filtering.
 
-- [ ] Determine and implement the most optimal amount of data to show on screen.
-- [ ] Implement user selection of data
+- [X] Determine and implement the most optimal amount of data to show on screen.
+- [X] Implement user selection of data
 * Change Number of coins to display on the graph
 * Change data to be displayed on the Y axis (need to look into log graphing)
 
 **Day 4**: Polish up UI and UX and finish README and clean up code.
 
-- [ ] Ensure that all code is functioning and ready for production
-- [ ] Ensure that code is behaving on an externally hosted env.
+- [X] Ensure that all code is functioning and ready for production
+- [X] Ensure that code is behaving on an externally hosted env.
 
 
