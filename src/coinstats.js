@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
   window.CoinStats = {};
   let graphRef;
-  const ctx = document.getElementById("myChart").getContext('2d');
+  const ctx = document.getElementById("myChart");
 
   let gradient = ctx.createLinearGradient(0, 0, 0, 1000);
   gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');

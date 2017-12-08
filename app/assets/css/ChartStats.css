@@ -632,6 +632,10 @@ select {
   border: none;
   -webkit-appearance: none;
   font-size: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  cursor: pointer;
 }
 
 #dataToDisplay{
@@ -649,6 +653,7 @@ button {
   -webkit-appearance: none;
   outline: none;
   border: none;
+  cursor: pointer;
 }
 
 .dataToDisplay  {
@@ -658,14 +663,14 @@ button {
 
 .chart  {
   width: 70vw;
-  height: auto;
+  /* height: auto; */
   margin: 0 auto;
   margin-left: 5vw;
 }
 
-canvas  {
+/* canvas  {
   display: inline;
-}
+} */
 
 body  {
   color: #e5e5e5;
@@ -709,12 +714,6 @@ body  {
   padding-top: 5px;
 }
 
-select {
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 5px;
-}
-
 input {
   padding-left: 15px;
   padding-top: 5px;
@@ -723,12 +722,13 @@ input {
 
 .headerLogo {
   font-family: Helvetica Neue, Arial, sans-serif;
+  height: 40px;
   font-size: 30px;
   font-weight: 150;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
   transition: all 1s ease-in-out;
-  position: fixed;
-  top: 23vh;
+  /* position: fixed; */
+  top: 27.5vh;
   left: 45%;
 }
 
@@ -761,10 +761,6 @@ input {
   text-align: left;
   width: 25vw;
   margin-right: 5vw;
-}
-
-.article  {
-  padding: 0;
 }
 
 .article a  {
@@ -815,4 +811,11 @@ input {
   display:flex;
   flex-direction: column;
   padding-left: 20px;
+}
+
+.homeContainer  {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
