@@ -602,6 +602,12 @@ body {
   transition: all 1s ease-in-out;
 }
 
+.userInputs.hidden  {
+  height: 20px;
+  opacity: 0;
+  z-index: 0;
+}
+
 h1 {
   font-weight: 200;
   font-size: 3em;
@@ -729,6 +735,7 @@ input {
   transition: all 1s ease-in-out;
   top: 27vh;
   left: 43%;
+  z-index: 1;
 }
 
 .graphics {
@@ -739,6 +746,7 @@ input {
   transition: all 0.2s ease-in-out;
   opacity: 0;
   pointer-events: none;
+
 }
 
 * {
@@ -751,7 +759,9 @@ input {
   top: 35px;
   left: 40px;
   font-size: 40;
-  transition: all 1s ease-in-out;
+  transition: all 0.8s ease-in-out;
+  cursor: pointer;
+  z-index: 1;
 }
 
 #newsList {
@@ -820,7 +830,16 @@ input {
   font-size: 50px;
   position: fixed;
   bottom: 40px;
-  transition: all 4s ease-in-out;
+  right: calc(50% - 60px);
+  transition: all 1s ease-in-out;
+}
+
+.logoLinks.dataDisplay  {
+  font-size: 50px;
+  position: fixed;
+  bottom: 40px;
+  right: 50px;
+  transition: all 1s ease-in-out;
 }
 
 .logoLinks a  {
@@ -834,18 +853,23 @@ input {
   transition: all 0.3s ease-in-out;
 }
 
-.logoLinks.dataDisplay  {
-  font-size: 50px;
-  position: fixed;
-  bottom: 40px;
-  right: 50px;
-  transition: all 4s ease-in-out;
-}
-
 .hideOptions  {
   display:flex;
 }
 
 .hideOptions.hidden {
   display: none;
+}
+
+.headerSubText  {
+  font-size: 15px;
+  position: relative;
+  left: 80px;
+  opacity: 1;
+  transition: all 2.5s ease-in-out;
+}
+
+.headerSubText.hidden {
+  opacity: 0;
+  transition: all 0.1s ease-in-out;
 }

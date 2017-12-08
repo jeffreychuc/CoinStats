@@ -222,10 +222,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let buildGraphButton = document.getElementById('buildGraph').classList.add('hidden');
     let aligner = document.getElementsByClassName('aligner')[0].classList.add('hidden');
     let logoLinks = document.getElementsByClassName('logoLinks')[0].classList.add('dataDisplay');
+    let headerSubText = document.getElementsByClassName('headerSubText')[0].classList.remove('hidden');
+    let headerClass = document.getElementsByClassName('headerLogo')[0].classList.add('headerDataPresent');
     debugger;
-    // let counter = document.getElementById('odometer').classList.remove('hidden');
     let finishGrabbingMarketData = updateMarketData(currencyShort).done(function (data) {
-      let headerClass = document.getElementsByClassName('headerLogo')[0].classList.add('headerDataPresent');
       document.getElementById('graphicsArea').classList.remove('hidden');
       grabAndDisplayNews(data.slice(2,3)[0].name);
       generateGraph(data.slice(1));
@@ -233,6 +233,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
   });
 
+  document.getElementsByClassName('headerLogo')[0].addEventListener('click', function()  {
+    if (this.classList.value.includes('headerDataPresent')) {
+      let userIn = document.getElementsByClassName('userInputs')[0].classList.remove('hidden');
+      let buildGraphButton = document.getElementById('buildGraph').classList.remove('hidden');
+      let aligner = document.getElementsByClassName('aligner')[0].classList.remove('hidden');
+      let logoLinks = document.getElementsByClassName('logoLinks')[0].classList.remove('dataDisplay');
+      let headerClass = document.getElementsByClassName('headerLogo')[0].classList.remove('headerDataPresent');
+      let headerSubText = document.getElementsByClassName('headerSubText')[0].classList.add('hidden');
+      document.getElementById('graphicsArea').classList.add('hidden');
+      this.classList.remove('headerDataPresent');
+    }
+  });
 
   //auto align select dropdown
   (function($, window){

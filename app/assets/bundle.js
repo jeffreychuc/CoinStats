@@ -26851,15 +26851,28 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var buildGraphButton = document.getElementById('buildGraph').classList.add('hidden');
     var aligner = document.getElementsByClassName('aligner')[0].classList.add('hidden');
     var logoLinks = document.getElementsByClassName('logoLinks')[0].classList.add('dataDisplay');
+    var headerSubText = document.getElementsByClassName('headerSubText')[0].classList.remove('hidden');
+    var headerClass = document.getElementsByClassName('headerLogo')[0].classList.add('headerDataPresent');
     debugger;
-    // let counter = document.getElementById('odometer').classList.remove('hidden');
     var finishGrabbingMarketData = (0, _api_util.updateMarketData)(currencyShort).done(function (data) {
-      var headerClass = document.getElementsByClassName('headerLogo')[0].classList.add('headerDataPresent');
       document.getElementById('graphicsArea').classList.remove('hidden');
       (0, _news.grabAndDisplayNews)(data.slice(2, 3)[0].name);
       generateGraph(data.slice(1));
       bubbleChart(data.slice(1, 1 + parseInt(document.getElementById('numberOfCoins').value)));
     });
+  });
+
+  document.getElementsByClassName('headerLogo')[0].addEventListener('click', function () {
+    if (this.classList.value.includes('headerDataPresent')) {
+      var userIn = document.getElementsByClassName('userInputs')[0].classList.remove('hidden');
+      var buildGraphButton = document.getElementById('buildGraph').classList.remove('hidden');
+      var aligner = document.getElementsByClassName('aligner')[0].classList.remove('hidden');
+      var logoLinks = document.getElementsByClassName('logoLinks')[0].classList.remove('dataDisplay');
+      var headerClass = document.getElementsByClassName('headerLogo')[0].classList.remove('headerDataPresent');
+      var headerSubText = document.getElementsByClassName('headerSubText')[0].classList.add('hidden');
+      document.getElementById('graphicsArea').classList.add('hidden');
+      this.classList.remove('headerDataPresent');
+    }
   });
 
   //auto align select dropdown

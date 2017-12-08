@@ -22,7 +22,10 @@
 
   <body>
       <div class='homeContainer'>
-          <div class='headerLogo'><i class="fa fa-connectdevelop" aria-hidden="true"></i> coinStats.</div>
+          <div class='headerLogo'>
+            <i class="fa fa-connectdevelop" aria-hidden="true"></i> coinStats.
+            <div class='headerSubText hidden'>>go_back</div>
+          </div>
           <div class='aligner'>
               <div class='userInputs'>
                   <div>
@@ -87,12 +90,12 @@
                         <option value='doughnut'>Doughnut Chart</option>
                     </select>
               </div>
-              <div class='buttonContainer'></div>
-              <br>
-              <br>
-              <button id='buildGraph'>Show me the money!</button>
+              <div class='buttonContainer'>
+                <br><br>
+                <button id='buildGraph'>Show me the money!</button>
+              </div>
           </div>
-          <div class='graphics hidden' id='graphicsArea'>
+            <div class='graphics hidden' id='graphicsArea'>
 
               <div class='graphics'></div>
               <div class='chart'>
