@@ -220,6 +220,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let userIn = document.getElementsByClassName('userInputs')[0].classList.add('hidden');
     let buildGraphButton = document.getElementById('buildGraph').classList.add('hidden');
     let aligner = document.getElementsByClassName('aligner')[0].classList.add('hidden');
+    let logoLinks = document.getElementsByClassName('logoLinks')[0].classList.add('dataDisplay');
+    debugger;
     // let counter = document.getElementById('odometer').classList.remove('hidden');
     let finishGrabbingMarketData = updateMarketData(currencyShort).done(function (data) {
       let headerClass = document.getElementsByClassName('headerLogo')[0].classList.add('headerDataPresent');

@@ -1,4 +1,5 @@
 <html>
+
   <head>
       <meta charset="utf-8">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -6,96 +7,99 @@
       <script type="text/javascript" src="./app/assets/bundle.js" charset="utf-8"></script>
       <link rel="stylesheet" type="text/css" href="./app/assets/css/ChartStats.css"></link>
   </head>
+
   <body>
-    <div class='homeContainer'>
-    <div class='headerLogo'><i class="fa fa-connectdevelop" aria-hidden="true"></i> coinStats.</div>
-    <!-- <div id="odometer" class="odometer hidden"></div> -->
-    <div class='aligner'>
-      <!-- <br> -->
-      <div class='userInputs'>
-        <div>
-          <h3>I want to see </h3>
-        </div>
-          <select id="dataToDisplay" class="resizeselect" >
-              <option value='0'>Price</option>
-              <option value='1'>Price in BTC</option>
-              <option value='2'>Volume in the last 24 hours   </option>
-              <option value='3'>Market cap</option>
-              <option value='4'>Percent Change in 1h   </option>
-              <option value='5'>Percent Change in 24h   </option>
-              <option value='6'>Percent Change in 7D   </option>
-          </select>
-        <div>
-          <h3>in</h3>
-        </div>
-        <div>
-          <select id='currency'>
-            <option value="USD">USD</option>
-            <option value="AUD">AUD</option>
-            <option value="BRL">BRL</option>
-            <option value="CAD">CAD</option>
-            <option value="CHF">CHF</option>
-            <option value="CLP">CLP</option>
-            <option value="CNY">CNY</option>
-            <option value="CZK">CZK</option>
-            <option value="DKK">DKK</option>
-            <option value="EUR">EUR</option>
-            <option value="GBP">GBP</option>
-            <option value="HKD">HKD</option>
-            <option value="HUF">HUF</option>
-            <option value="IDR">IDR</option>
-            <option value="ILS">ILS</option>
-            <option value="INR">INR</option>
-            <option value="JPY">JPY</option>
-            <option value="KRW">KRW</option>
-            <option value="MXN">MXN</option>
-            <option value="MYR">MYR</option>
-            <option value="NOK">NOK</option>
-            <option value="NZD">NZD</option>
-            <option value="PHP">PHP</option>
-            <option value="PKR">PKR</option>
-            <option value="PLN">PLN</option>
-            <option value="RUB">RUB</option>
-            <option value="SEK">SEK</option>
-            <option value="SGD">SGD</option>
-            <option value="THB">THB</option>
-            <option value="TRY">TRY</option>
-            <option value="TWD">TWD</option>
-            <option value="ZAR">ZAR</option>
-          </select>
-        </div>
-        <h3> for the top </h3>
-        <input type="text" id='numberOfCoins' value="10" maxlength="2" placeholder="10"></input>
-        <h3>coins as a</h3>
-        <select id="chartType">
-          <option value='line'>Line Graph</option>
-          <option value='bar'>Bar Graph</option>
-          <option value='doughnut'>Doughnut Chart</option>
-        </select>
-      </div>
-      <div class='buttonContainer'></div>
-        <br><br>
-        <button id='buildGraph' >Show me the money!</button>
-      </div>
-      <div class='graphics hidden' id='graphicsArea'>
-          <!-- <div>title</div> -->
-          <div class='graphics'></div>
-            <div class='chart'>
-              <canvas id='myChart'></canvas>
-            </div>
-            <div class='vertLineContainer'>
-              <div class='vertLine'></div>
-            </div>
-            <div class='newsContainer'>
-              <h2>Live News</h2>
-              <div id='newsList'></div>
-            </div>
+      <div class='homeContainer'>
+          <div class='headerLogo'><i class="fa fa-connectdevelop" aria-hidden="true"></i> coinStats.</div>
+          <div class='aligner'>
+              <div class='userInputs'>
+                  <div>
+                      <h3>I want to see </h3>
+                  </div>
+                  <select id="dataToDisplay" class="resizeselect">
+                        <option value='0'>Price</option>
+                        <option value='1'>Price in BTC</option>
+                        <option value='2'>Volume in the last 24 hours </option>
+                        <option value='3'>Market cap</option>
+                        <option value='4'>Percent Change in 1h </option>
+                        <option value='5'>Percent Change in 24h </option>
+                        <option value='6'>Percent Change in 7D </option>
+                    </select>
+                  <div>
+                      <h3>in</h3>
+                  </div>
+                  <div>
+                      <select id='currency'>
+                            <option value="USD">USD</option>
+                            <option value="AUD">AUD</option>
+                            <option value="BRL">BRL</option>
+                            <option value="CAD">CAD</option>
+                            <option value="CHF">CHF</option>
+                            <option value="CLP">CLP</option>
+                            <option value="CNY">CNY</option>
+                            <option value="CZK">CZK</option>
+                            <option value="DKK">DKK</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                            <option value="HKD">HKD</option>
+                            <option value="HUF">HUF</option>
+                            <option value="IDR">IDR</option>
+                            <option value="ILS">ILS</option>
+                            <option value="INR">INR</option>
+                            <option value="JPY">JPY</option>
+                            <option value="KRW">KRW</option>
+                            <option value="MXN">MXN</option>
+                            <option value="MYR">MYR</option>
+                            <option value="NOK">NOK</option>
+                            <option value="NZD">NZD</option>
+                            <option value="PHP">PHP</option>
+                            <option value="PKR">PKR</option>
+                            <option value="PLN">PLN</option>
+                            <option value="RUB">RUB</option>
+                            <option value="SEK">SEK</option>
+                            <option value="SGD">SGD</option>
+                            <option value="THB">THB</option>
+                            <option value="TRY">TRY</option>
+                            <option value="TWD">TWD</option>
+                            <option value="ZAR">ZAR</option>
+                        </select>
+                  </div>
+                  <h3> for the top </h3>
+                  <input type="text" id='numberOfCoins' value="10" maxlength="2" placeholder="10"></input>
+                  <h3>coins as a</h3>
+                  <select id="chartType">
+                        <option value='line'>Line Graph</option>
+                        <option value='bar'>Bar Graph</option>
+                        <option value='doughnut'>Doughnut Chart</option>
+                    </select>
+              </div>
+              <div class='buttonContainer'></div>
+              <br>
+              <br>
+              <button id='buildGraph'>Show me the money!</button>
           </div>
-          <!-- <div id='bubbles'></div> -->
+          <div class='graphics hidden' id='graphicsArea'>
+
+              <div class='graphics'></div>
+              <div class='chart'>
+                  <canvas id='myChart'></canvas>
+              </div>
+              <div class='vertLineContainer'>
+                  <div class='vertLine'></div>
+              </div>
+              <div class='newsContainer'>
+                  <h2>Live News</h2>
+                  <div id='newsList'></div>
+              </div>
+          </div>
+
       </div>
-    </div>
-    </div>
+      </div>
+      </div>
+      <div class='logoLinks'>
+        <a href="https://www.linkedin.com/in/jeffrey-chuc/"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+        <a href="https://www.github.com/jeffreychuc"><i class="fa fa-github-square" aria-hidden="true"></i></a>
+      </div>
   </body>
-</html>
 
-
+  </html>

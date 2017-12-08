@@ -814,3 +814,30 @@ input {
   align-items: center;
   justify-content: center;
 }
+
+.logoLinks  {
+  display:flex;
+  font-size: 50px;
+  position: fixed;
+  bottom: 40px;
+  transition: all 4s ease-in-out;
+}
+
+.logoLinks a  {
+  padding: 5px;
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease-in-out;
+}
+
+.logoLinks a:hover {
+  color:white;
+  transition: all 0.3s ease-in-out;
+}
+
+.logoLinks.dataDisplay  {
+  font-size: 50px;
+  position: fixed;
+  bottom: 40px;
+  right: 50px;
+  transition: all 4s ease-in-out;
+}

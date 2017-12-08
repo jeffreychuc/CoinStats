@@ -26848,6 +26848,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var userIn = document.getElementsByClassName('userInputs')[0].classList.add('hidden');
     var buildGraphButton = document.getElementById('buildGraph').classList.add('hidden');
     var aligner = document.getElementsByClassName('aligner')[0].classList.add('hidden');
+    var logoLinks = document.getElementsByClassName('logoLinks')[0].classList.add('dataDisplay');
+    debugger;
     // let counter = document.getElementById('odometer').classList.remove('hidden');
     var finishGrabbingMarketData = (0, _api_util.updateMarketData)(currencyShort).done(function (data) {
       var headerClass = document.getElementsByClassName('headerLogo')[0].classList.add('headerDataPresent');
