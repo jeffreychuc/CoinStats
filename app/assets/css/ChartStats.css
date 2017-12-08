@@ -722,14 +722,13 @@ input {
 
 .headerLogo {
   font-family: Helvetica Neue, Arial, sans-serif;
-  height: 40px;
-  font-size: 30px;
+  height: 60px;
+  font-size: 50px;
   font-weight: 150;
   /* padding-bottom: 20px; */
   transition: all 1s ease-in-out;
-  /* position: fixed; */
-  top: 27.5vh;
-  left: 45%;
+  top: 27vh;
+  left: 43%;
 }
 
 .graphics {
@@ -767,10 +766,6 @@ input {
   color: white;
   padding: 0;
   margin: 0;
-}
-
-.odometer odometer-auto-theme  {
-  background-color: none;
 }
 
 .newsContainer  {
