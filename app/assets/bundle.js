@@ -26835,6 +26835,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   };
 
+  document.getElementById('dataToDisplay').addEventListener('change', function (el) {
+    debugger;
+    if ([1, 4, 5, 6].includes(parseInt(el.target.value))) {
+      debugger;
+      document.getElementsByClassName('hideOptions')[0].classList.add('hidden');
+    } else {
+      document.getElementsByClassName('hideOptions')[0].classList.remove('hidden');
+    }
+  });
+
   document.getElementById("buildGraph").addEventListener("click", function () {
     var currencyShort = document.getElementById("currency").value;
     var userIn = document.getElementsByClassName('userInputs')[0].classList.add('hidden');

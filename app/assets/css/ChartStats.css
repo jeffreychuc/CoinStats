@@ -841,3 +841,11 @@ input {
   right: 50px;
   transition: all 4s ease-in-out;
 }
+
+.hideOptions  {
+  display:flex;
+}
+
+.hideOptions.hidden {
+  display: none;
+}
