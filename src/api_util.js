@@ -18,10 +18,9 @@ export const updateMarketData = (currencyShort) => {
           }).then((updatedData) => {
             // debugger;
             updatedData.unshift({timestamp: new Date().getTime() / 1000});
-            // debugger;
             $.ajax({
-              url: links[currencyShort],
-              method: "POST",
+              url: links[currencyShort].slice(0,-7),
+              method: "PUT",
               contentType: 'application/json',
               data: JSON.stringify(updatedData)
             });

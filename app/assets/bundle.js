@@ -26803,37 +26803,46 @@ document.addEventListener("DOMContentLoaded", function (event) {
     return 1;
   };
 
-  var bubbleChart = function bubbleChart(data) {
-    var width = 500;
-    var height = 500;
-    d3.select('#bubbles').selectAll("*").remove();
-    console.log(simpleSort);
-    var svg = d3.select('#bubbles').append('svg').attr('height', height).attr('width', width).append('g').attr('transform', "translate(0,0)");
-    var dataSorted = data.map(function (a) {
-      return parseFloat(a[window.CoinStats.key]);
-    });
-    dataSorted = dataSorted.sort(function (a, b) {
-      return simpleSort(b, a);
-    });
-    var radiusScale = d3.scaleSqrt().domain([dataSorted[0], dataSorted.slice(-1)[0]]).range([5, 100]);
-    var simulation = d3.forceSimulation().force('x', d3.forceX(width / 2).strength(0.05)).force('y', d3.forceY(height / 2).strength(0.05)).force('collide', d3.forceCollide(function (d) {
-      return radiusScale(parseFloat(d[window.CoinStats.key]));
-    }));
+  // const bubbleChart = (data) =>  {
+  //   const width = 500;
+  //   const height = 500;
+  //   d3.select('#bubbles')
+  //   .selectAll("*").remove();
+  //   // console.log(simpleSort);
+  //   let svg = d3.select('#bubbles')
+  //     .append('svg')
+  //     .attr('height', height)
+  //     .attr('width', width)
+  //     .append('g')
+  //     .attr('transform', "translate(0,0)");
+  //   let dataSorted = data.map((a) => parseFloat(a[window.CoinStats.key]));
+  //   dataSorted = dataSorted.sort((a,b) => simpleSort(b,a));
+  //   let radiusScale = d3.scaleSqrt().domain([dataSorted[0], dataSorted.slice(-1)[0]]).range([5, 100]);
+  //   let simulation = d3.forceSimulation()
+  //   .force('x', d3.forceX(width/2).strength(0.05))
+  //   .force('y', d3.forceY(height/2).strength(0.05))
+  //   .force('collide', d3.forceCollide(d => radiusScale(parseFloat(d[window.CoinStats.key]))));
 
-    var circles = svg.selectAll(".coins").data(data).enter().append('circle').attr('class', 'coin').attr('r', function (d) {
-      return radiusScale(parseFloat(d[window.CoinStats.key]));
-    }).attr('fill', 'rgba(0, 255, 21,0.8)').attr('opacity', 0.8).append('text').attr('text', 'lol');
+  //   let circles = svg.selectAll(".coins")
+  //   .data(data)
+  //   .enter()
+  //   .append('circle')
+  //   .attr('class', 'coin')
+  //   .attr('r', d => radiusScale(parseFloat(d[window.CoinStats.key])))
+  //   .attr('fill', 'rgba(0, 255, 21,0.8)')
+  //   .attr('opacity', 0.8)
+  //   .append('text')
+  //   .attr('text', 'lol');
 
-    simulation.nodes(data).on('tick', ticked);
+  //   simulation.nodes(data).on('tick', ticked);
 
-    function ticked() {
-      circles.attr('cx', function (d) {
-        return d.x;
-      }).attr('cy', function (d) {
-        return d.y;
-      });
-    }
-  };
+  //   function ticked ()  {
+  //     circles
+  //     .attr('cx', (d) => d.x)
+  //     .attr('cy', (d) => d.y);
+  //   }
+  // };
+
 
   document.getElementById('dataToDisplay').addEventListener('change', function (el) {
     // debugger;
@@ -26858,7 +26867,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       document.getElementById('graphicsArea').classList.remove('hidden');
       (0, _news.grabAndDisplayNews)(data.slice(2, 3)[0].name);
       generateGraph(data.slice(1));
-      bubbleChart(data.slice(1, 1 + parseInt(document.getElementById('numberOfCoins').value)));
+      // bubbleChart(data.slice(1, 1 + parseInt(document.getElementById('numberOfCoins').value)));
     });
   });
 
@@ -39991,10 +40000,9 @@ var updateMarketData = exports.updateMarketData = function updateMarketData(curr
           }).then(function (updatedData) {
             // debugger;
             updatedData.unshift({ timestamp: new Date().getTime() / 1000 });
-            // debugger;
             $.ajax({
-              url: links[currencyShort],
-              method: "POST",
+              url: links[currencyShort].slice(0, -7),
+              method: "PUT",
               contentType: 'application/json',
               data: JSON.stringify(updatedData)
             });
