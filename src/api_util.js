@@ -11,7 +11,7 @@ export const updateMarketData = (currencyShort) => {
         type: "GET"
       }).then((data) => {
         // debugger;
-        if ((data[0].timestamp - currentSeconds) > 600) {
+        if ((data[0].timestamp - currentSeconds) < 600) {
           return $.ajax({
             url: "https://api.coinmarketcap.com/v1/ticker/?start=1&limit=100&convert="+window.CoinStats.currencyShort,
             method: "GET"
