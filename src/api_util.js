@@ -6,17 +6,23 @@ export const updateMarketData = (currencyShort) => {
     let currentSeconds = new Date().getTime() / 1000;
     // debugger;
     if (links[currencyShort] !== undefined) {
+      console.log(links);
+      console.log(currencyShort);
+      console.log(links[currencyShort]);
       return $.ajax({
         url: links[currencyShort],
         type: "GET"
       }).then((data) => {
         // debugger;
         if ((data[0].timestamp - currentSeconds) < 600) {
+          // console.log('grabbing new data');
+          // console.log(currencyShort);
+          // console.log("https://api.coinmarketcap.com/v1/ticker/?start=1&limit=100&convert="+currencyShort);
           return $.ajax({
-            url: "https://api.coinmarketcap.com/v1/ticker/?start=1&limit=100&convert="+window.CoinStats.currencyShort,
+            url: "https://api.coinmarketcap.com/v1/ticker/?start=1&limit=100&convert="+currencyShort,
             method: "GET"
           }).then((updatedData) => {
-            // debugger;
+            debugger;
             updatedData.unshift({timestamp: new Date().getTime() / 1000});
             $.ajax({
               url: links[currencyShort].slice(0,-7),
@@ -24,6 +30,7 @@ export const updateMarketData = (currencyShort) => {
               contentType: 'application/json',
               data: JSON.stringify(updatedData)
             });
+            // console.log('should be returning updated data');
             return updatedData;
           });
         }

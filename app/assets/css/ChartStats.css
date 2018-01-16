@@ -593,21 +593,6 @@ body {
   text-align: center;
 }
 
-.userInputs {
-  display: flex;
-  justify-content: center;
-  height: 20px;
-  padding-left: 50px;
-  opacity: 1;
-  transition: all 1s ease-in-out;
-}
-
-.userInputs.hidden  {
-  height: 20px;
-  opacity: 0;
-  z-index: 0;
-}
-
 h1 {
   font-weight: 200;
   font-size: 3em;
@@ -691,28 +676,8 @@ body  {
   justify-content: center;
 }
 
-.aligner  {
-  /* position: relative; */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  top: -90px;
-}
-
 #numberOfCoins  {
   background: rgb(40,41,45);
-}
-
-#buildGraph {
-  background: rgba(255, 255, 255, 0.3);
-  font-size: 45px;
-  font-family: Helvetica Neue, Arial, sans-serif;
-  font-weight: 150;
-  color: #ffffffc4;
-  border: #ffffffc4 1px solid;
-  border-radius: 3.5px;
-  padding: 5 25;
 }
 
 #dataToDisplay  {
@@ -727,42 +692,15 @@ input {
   width: 60px;
 }
 
-.headerLogo {
-  font-family: Helvetica Neue, Arial, sans-serif;
-  height: 60px;
-  font-size: 50px;
-  font-weight: 150;
-  /* padding-bottom: 20px; */
-  transition: all 1s ease-in-out;
-  top: 27vh;
-  left: 43%;
-  z-index: 1;
-}
-
-.graphics {
-  display:flex;
-}
-
 .hidden {
   transition: all 0.2s ease-in-out;
   opacity: 0;
   pointer-events: none;
-
 }
 
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.headerDataPresent  {
-  position: fixed;
-  top: 35px;
-  left: 40px;
-  font-size: 40;
-  transition: all 0.8s ease-in-out;
-  cursor: pointer;
-  z-index: 1;
 }
 
 #newsList {
@@ -798,15 +736,6 @@ input {
   height: 38vh;
   position: relative;
   top: 40px;
-}
-
-#buildGraph {
-  transition: all 0.3s ease-in-out;
-}
-
-#buildGraph:hover {
-  color: rgba(255, 255, 255, 0.4);
-  transition: all 0.3s ease-in-out;
 }
 
 #graphicsArea {
@@ -874,3 +803,123 @@ input {
   opacity: 0;
   transition: all 0.1s ease-in-out;
 }
+
+.aligner  {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 10px;
+  transition: all 1s ease-in-out;
+}
+
+
+.aligner.dataDisplay  {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: -1px;
+  transition: all 1s ease-in-out;
+}
+
+.headerLogo {
+  position: relative;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  height: 60px;
+  font-size: 50px;
+  font-weight: 150;
+  transition: all 1s ease-in-out;
+  z-index: 1;
+  align-items: center;
+  left: 0px;
+}
+
+.headerLogo.headerDataPresent  {
+  position: relative;
+  font-size: 40;
+  transition: all 0.8s ease-in-out;
+  cursor: pointer;
+  z-index: 1;
+  left: -500px;
+}
+
+.graphics {
+  display:flex;
+  padding-top: 80px;
+  position: relative;
+  bottom: -1000px;
+  transition: all 0.4s ease-in-out;
+  height: 75vh;
+}
+
+.graphics.dataDisplay {
+  display: flex;
+  padding-top: 80px;
+  position: relative;
+  bottom: 0px;
+  height: 75vh;
+  transition: all 0.4s ease-in-out;
+}
+
+.buttonContainer  {
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  left: 0;
+  top: 0;
+}
+
+.buttonContainer.dataDisplay  {
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  top: -25px;
+  left: 280px;
+}
+
+.userInputs {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  height: 20px;
+  padding-left: 50px;
+  opacity: 1;
+  transition: all 0.4s ease-in-out;
+  left: 0;
+  top: 0;
+}
+
+.userInputs.dataDisplay  {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  height: 20px;
+  padding-left: 50px;
+  opacity: 1;
+  transition: all 0.4s ease-in-out;
+  top: 35px;
+  left: -185px;
+}
+
+#buildGraph {
+  transition: all 0.3s ease-in-out;
+  background: rgba(255, 255, 255, 0.3);
+  font-size: 45px;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  font-weight: 150;
+  color: #ffffffc4;
+  border: #ffffffc4 1px solid;
+  border-radius: 3.5px;
+  padding: 5 25;
+}
+
+#buildGraph:hover {
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease-in-out;
+}
+
+.buttonContainer.dataDisplay #buildGraph {
+  font-size: 20px;
+}
+

@@ -1,7 +1,7 @@
 import Chart from 'chart.js';
 import { updateMarketData } from './api_util';
 import { grabAndDisplayNews } from './news';
-import * as d3 from "d3";
+// import * as d3 from "d3";
 
 
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -218,15 +218,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   document.getElementById("buildGraph").addEventListener("click", function(){
     let currencyShort = document.getElementById("currency").value;
-    let userIn = document.getElementsByClassName('userInputs')[0].classList.add('hidden');
-    let buildGraphButton = document.getElementById('buildGraph').classList.add('hidden');
-    let aligner = document.getElementsByClassName('aligner')[0].classList.add('hidden');
+    // let userIn = document.getElementsByClassName('userInputs')[0].classList.add('hidden');
+    // let buildGraphButton = document.getElementById('buildGraph').classList.add('hidden');
+    let aligner = document.getElementsByClassName('aligner')[0].classList.add('dataDisplay');
     let logoLinks = document.getElementsByClassName('logoLinks')[0].classList.add('dataDisplay');
     let headerSubText = document.getElementsByClassName('headerSubText')[0].classList.remove('hidden');
     let headerClass = document.getElementsByClassName('headerLogo')[0].classList.add('headerDataPresent');
     // debugger;
     let finishGrabbingMarketData = updateMarketData(currencyShort).done(function (data) {
-      document.getElementById('graphicsArea').classList.remove('hidden');
+      document.getElementById('graphicsArea').classList.add('dataDisplay');
+      document.getElementsByClassName('buttonContainer')[0].classList.add('dataDisplay');
+      document.getElementsByClassName('userInputs')[0].classList.add('dataDisplay');
+      let button = document.getElementById('buildGraph');
+      button.innerHTML = 'Show me more money!';
       grabAndDisplayNews(data.slice(2,3)[0].name);
       generateGraph(data.slice(1));
       // bubbleChart(data.slice(1, 1 + parseInt(document.getElementById('numberOfCoins').value)));
@@ -237,11 +241,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if (this.classList.value.includes('headerDataPresent')) {
       let userIn = document.getElementsByClassName('userInputs')[0].classList.remove('hidden');
       let buildGraphButton = document.getElementById('buildGraph').classList.remove('hidden');
-      let aligner = document.getElementsByClassName('aligner')[0].classList.remove('hidden');
       let logoLinks = document.getElementsByClassName('logoLinks')[0].classList.remove('dataDisplay');
       let headerClass = document.getElementsByClassName('headerLogo')[0].classList.remove('headerDataPresent');
       let headerSubText = document.getElementsByClassName('headerSubText')[0].classList.add('hidden');
-      document.getElementById('graphicsArea').classList.add('hidden');
+      let aligner = document.getElementsByClassName('aligner')[0].classList.remove('dataDisplay');
+      document.getElementById('graphicsArea').classList.remove('dataDisplay');
+      let button = document.getElementById('buildGraph');
+      document.getElementsByClassName('buttonContainer')[0].classList.remove('dataDisplay');
+      document.getElementsByClassName('userInputs')[0].classList.remove('dataDisplay');
+      button.innerHTML = 'Show me the money!';
       this.classList.remove('headerDataPresent');
     }
   });
