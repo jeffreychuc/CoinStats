@@ -229,6 +229,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       document.getElementById('graphicsArea').classList.add('dataDisplay');
       document.getElementsByClassName('buttonContainer')[0].classList.add('dataDisplay');
       document.getElementsByClassName('userInputs')[0].classList.add('dataDisplay');
+      document.getElementsByClassName('homeContainer')[0].classList.add('dataDisplay');
       let button = document.getElementById('buildGraph');
       button.innerHTML = 'Show me more money!';
       grabAndDisplayNews(data.slice(2,3)[0].name);
@@ -249,6 +250,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       let button = document.getElementById('buildGraph');
       document.getElementsByClassName('buttonContainer')[0].classList.remove('dataDisplay');
       document.getElementsByClassName('userInputs')[0].classList.remove('dataDisplay');
+      document.getElementsByClassName('homeContainer')[0].classList.remove('dataDisplay');
       button.innerHTML = 'Show me the money!';
       this.classList.remove('headerDataPresent');
     }

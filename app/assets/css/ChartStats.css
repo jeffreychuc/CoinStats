@@ -753,6 +753,19 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  top: 200px;
+  transition: all 0.3s ease-in-out;
+}
+
+.homeContainer.dataDisplay {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 0px;
+  transition: all 0.3s ease-in-out;
 }
 
 .logoLinks  {
@@ -875,7 +888,7 @@ input {
   position: relative;
   transition: all 0.4s ease-in-out;
   top: -25px;
-  left: 280px;
+  left: 350px;
 }
 
 .userInputs {
