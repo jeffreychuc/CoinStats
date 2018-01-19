@@ -17,6 +17,19 @@
   });
   woopra.track();
 </script>
+<script>
+    /* Place this on a template where a customer initially is identified
+       or after authentication. (Important: Update these values) */
+
+    woopra.identify({
+      //email: "<<YOUR CUSTOMER EMAIL HERE>>",
+      name: "<<YOUR CUSTOMER NAME HERE>>",
+      company: "<<YOUR CUSTOMER COMPANY HERE>>"
+    });
+
+    // The identify code should be added before the "track()" function
+    woopra.track();
+  </script>
 <!-- End of Woopra Code -->
       <link rel="stylesheet" type="text/css" href="./app/assets/css/ChartStats.css"></link>
       <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
