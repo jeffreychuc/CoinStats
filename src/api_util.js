@@ -4,21 +4,22 @@ export const updateMarketData = (currencyShort) => {
     method: "GET"
   }).then((links) => {
     let currentSeconds = new Date().getTime() / 1000;
-    // debugger;
+    // console.log(currentSeconds, 'current time');
     if (links[currencyShort] !== undefined) {
-      console.log(links);
-      console.log(currencyShort);
-      console.log(links[currencyShort]);
+      // console.log(links);
+      // console.log(currencyShort);
+      // console.log(links[currencyShort]);
       return $.ajax({
         url: links[currencyShort],
         type: "GET"
       }).then((data) => {
         // debugger;
-        console.log(data[0].timestamp);
-        console.log(currentSeconds);
-        console.log((data[0].timestamp - currentSeconds) > 600);
-        if ((data[0].timestamp - currentSeconds) > 600) {
-          console.log('grabbing new data');
+        // console.log(data[0].timestamp, 'timeStamped time');
+        // console.log(currentSeconds, 'currentTime');
+        // console.log((currentSeconds - data[0].timestamp) , 'timeDelta');
+        // console.log((currentSeconds - data[0].timestamp) > 600);
+        if ((currentSeconds - data[0].timestamp) > 600) {
+          // console.log('grabbing new data');
           // console.log(currencyShort);
           // console.log("https://api.coinmarketcap.com/v1/ticker/?start=1&limit=100&convert="+currencyShort);
           return $.ajax({
